@@ -1,5 +1,5 @@
 # Usa la imagen oficial de Nginx
-FROM docker.io/library/nginx:1.28.0-alpine-slim
+FROM docker.io/nginx:alpine
 
 # Copia el archivo HTML al directorio de Nginx
 COPY index.html /usr/share/nginx/html/index.html
