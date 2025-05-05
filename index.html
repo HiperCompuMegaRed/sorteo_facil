@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selector de Nombres Aleatorios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        form, results {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 10px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .results ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .results li {
+            padding: 5px;
+            background-color: #f2f2f2;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Selector de Nombres Aleatorios</h1>
+
+    <form id="name-form">
+        <p>
+            <label for="name-list">Introduce los nombres separados por comas:</label>
+            <textarea id="name-list" rows="5" required></textarea>
+        </p>
+        <p>
+            <label for="quantity">Número de nombres a escoger:</label>
+            <input type="number" id="quantity" min="1" required>
+        </p>
+        <button type="submit">Hacer Sorteo</button>
+    </form>
+
+    <div class="results" id="results">
+        <h2>Resultados:</h2>
+        <ul id="result-list"></ul>
+    </div>
+
+    <script>
+        document.getElementById('name-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const names = document.getElementById('name-list').value.split(',').map(name => name.trim());
+            const quantity = parseInt(document.getElementById('quantity').value);
+
+            if (quantity > names.length) {
+                alert('La cantidad a escoger es mayor que el número de nombres disponibles.');
+                return;
+            }
+
+            const shuffledNames = names.sort(() => 0.5 - Math.random());
+            const selectedNames = shuffledNames.slice(0, quantity);
+
+            const resultListElement = document.getElementById('result-list');
+            resultListElement.innerHTML = '';
+
+            selectedNames.forEach(name => {
+                const listItem = document.createElement('li');
+                listItem.textContent = name;
+                resultListElement.appendChild(listItem);
+            });
+        });
+    </script>
+
+</body>
+</html>
